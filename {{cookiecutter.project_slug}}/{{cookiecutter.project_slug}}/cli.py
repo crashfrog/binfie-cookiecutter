@@ -1,7 +1,7 @@
-{% if cookiecutter.project_shell_cmd %}
+{%- if cookiecutter.project_shell_cmd -%}
 import click
 
-@click.command
+@click.command("{{ cookiecutter.project_shell_cmd }}")
 def cli():
     pass
 
