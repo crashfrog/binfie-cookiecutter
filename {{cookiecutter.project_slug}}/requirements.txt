@@ -1,1 +1,2 @@
-hypothesis=="5.10.4"
+hypothesis=="6.8.5"
+{%- if cookiecutter.python_shell_cmd %}Click>="7.1.2"{%- endif %}
