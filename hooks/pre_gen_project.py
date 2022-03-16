@@ -6,7 +6,7 @@ def get_ver(pkg):
     return rec['info']['version']
 
 def make_line(pkg):
-    return '{}=="{}"\n'.format(pkg, get_ver(pkg))
+    return '{}~="{}"\n'.format(pkg, get_ver(pkg))
 
 if __name__ == '__main__':
     with open("requirements.txt", "w") as requirements:
