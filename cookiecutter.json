@@ -5,11 +5,12 @@
     "project_name": "",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "project_shell_cmd": "",
-    "project_short_description": "Generic Python project, lightweight template",
+    "use_logging":false,
+    "project_short_description": "Binfie Python project, lightweight template",
     "pypi_username": "{{ cookiecutter.github_username }}",
     "version": "0.1.0",
     "use_pytest": "n",
     "add_pyup_badge": "n",
     "create_author_file": "n",
-    "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Public domain", "Not open source"]
+    "open_source_license": ["MIT license", "GNU General Public License v3", "Public domain", "US Government Work Product", "BSD license", "ISC license", "Apache Software License 2.0",  "Not open source"]
   }
