@@ -81,8 +81,8 @@ docs: ## generate Sphinx HTML documentation, including API docs
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-revise: ## update version, tag, and history using Quickversion
-	quiv ./
+revise: ## update version, tag, and history using zest.releaser
+	prerelease
 
 release: dist ## package and upload a release
 	twine upload dist/*
