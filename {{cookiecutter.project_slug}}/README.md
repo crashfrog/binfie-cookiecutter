@@ -4,4 +4,15 @@
 
 ---
 
-Created from Python-Lite, https://github.com/crashfrog/python-lite
+## Installation
+
+`pip install {{cookiecutter.project_slug}}`
+
+{%- if cookiecutter.project_shell_cmd %}
+## Usage
+
+`$ {{cookiecutter.project_shell_cmd}} --help`
+{% endif %}
+
+---
+Created from Binfie-cookiecutter, https://github.com/crashfrog/binfie-cookiecutter
