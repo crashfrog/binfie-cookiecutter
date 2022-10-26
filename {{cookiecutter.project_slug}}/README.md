@@ -6,7 +6,7 @@
 
 ## Installation
 
-`pip install {{cookiecutter.project_stub}}`
+`pip install {{cookiecutter.project_slug}}`
 
 {%- if cookiecutter.project_shell_cmd %}
 ## Usage
