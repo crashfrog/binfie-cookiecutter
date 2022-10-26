@@ -1,5 +1,6 @@
 {%- if cookiecutter.project_shell_cmd -%}
 import click
+{% endif %}
 
 {%- if cookiecutter.use_logging -%}
 import logging
@@ -29,10 +30,9 @@ def cli(verbose=0):
     logging.basicConfig(level=log_level,
                         format='[%(asctime)s][%(name)-12s][%(levelname)-8s] %(message)s',
                         datefmt='%m-%d %H:%M')
-    {% endif %}
+    {% else %}
     pass
+    {% endif %}
 
 if __name__ == '__main__':
     cli()
-
-{% endif %}

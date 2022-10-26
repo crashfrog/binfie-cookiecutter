@@ -66,9 +66,8 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv {{ cookiecutter.project_slug }}
     $ cd {{ cookiecutter.project_slug }}/
-    $ python setup.py develop
+    $ python setup.py dev
 
 4. Create a branch for local development::
 
@@ -79,9 +78,9 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 5. When you're done making changes, check that your changes pass flake8 and the
    tests, including testing other Python versions with tox::
 
-    $ flake8 {{ cookiecutter.project_slug }} tests
-    $ python setup.py test or pytest
-    $ tox
+    $ make lint
+    $ make test
+    $ make test-all
 
    To get flake8 and tox, just pip install them into your virtualenv.
 
@@ -112,9 +111,9 @@ Tips
 To run a subset of tests::
 
 {% if cookiecutter.use_pytest == 'y' -%}
-    $ pytest tests.test_{{ cookiecutter.project_slug }}
+    $ pytest {{ cookiecutter.project_slug }}.tests
 {% else %}
-    $ python -m unittest tests.test_{{ cookiecutter.project_slug }}
+    $ python -m unittest {{ cookiecutter.project_slug }}.tests
 {%- endif %}
 
 Deploying
@@ -124,7 +123,7 @@ A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
 Then run::
 
-$ bump2version patch # possible: major / minor / patch
+$ make release
 $ git push
 $ git push --tags
 
