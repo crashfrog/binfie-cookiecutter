@@ -23,6 +23,7 @@ import logging
 @click.option("-v", "--verbose", count=True)
 {% endif %}
 def cli(verbose=0):
+    "{{cookiecutter.project_short_description}}"
     {%- if cookiecutter.use_logging -%}
     log_level = {0:60, 1:30, 2:20, 3:10}[verbose]
     logging.basicConfig(level=log_level,
