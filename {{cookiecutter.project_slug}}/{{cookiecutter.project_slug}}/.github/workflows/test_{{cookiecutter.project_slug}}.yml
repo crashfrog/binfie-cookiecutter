@@ -28,7 +28,7 @@ jobs:
       - name: Setup Environment for {{cookiecutter.project_name}}
         run: |
           conda env create -f environment.yml
-          conda activate {{cookiecutter.project_stub}}
+          conda activate {{cookiecutter.project_slug}}
 
       - name: Environment Information
         run: uname -a && env
