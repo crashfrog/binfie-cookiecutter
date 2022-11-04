@@ -2,7 +2,7 @@
 import click
 {% endif %}
 
-{%- if cookiecutter.use_logging -%}
+{%- if cookiecutter.use_logging %}
 import logging
 {% endif %}
 
@@ -19,13 +19,13 @@ import logging
 
 
 @click.command("{{ cookiecutter.project_shell_cmd }}")
-@click.version_option()
-{%- if cookiecutter.use_logging -%}
+@click.version_option(package_name="{{ cookiecutter.project_slug }}", message="%(prog)s %(version)s")
+{%- if cookiecutter.use_logging %}
 @click.option("-v", "--verbose", count=True)
 {% endif %}
 def cli(verbose=0):
     "{{cookiecutter.project_short_description}}"
-    {%- if cookiecutter.use_logging -%}
+    {%- if cookiecutter.use_logging %}
     log_level = {0:60, 1:30, 2:20, 3:10}[verbose]
     logging.basicConfig(level=log_level,
                         format='[%(asctime)s][%(name)-12s][%(levelname)-8s] %(message)s',
