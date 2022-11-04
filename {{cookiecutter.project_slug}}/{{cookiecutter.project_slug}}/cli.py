@@ -36,5 +36,3 @@ def cli(verbose=0):
 
 if __name__ == '__main__':
     cli()
-
-{% endif %}
