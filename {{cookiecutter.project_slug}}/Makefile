@@ -26,6 +26,10 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
+init: ## initialize and pull any submodules
+	git submodule init
+	git submodule update
+
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 install-test: clean ## install the package to the active Python's site-packages
@@ -90,9 +94,8 @@ revise: dev ## update version, tag, and history using zest.releaser
 release: dist ## package and upload a release
 	twine upload dist/*
 
-dist: dev clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+dist: clean ## builds source and wheel package
+	python -m build
 	ls -l dist
 
 # Not sure if this is the right approach
@@ -101,7 +104,4 @@ install: clean ## install the package to the active Python's site-packages
 	python -m pip install .
 
 dev: clean ## install the dev dependencies and install in edit mode
-	python -m pip install -e .[dev]
-
-container: ## create the latest version of the container image
-	docker build -t {{cookiecutter.github_username}}/{{ cookiecutter.project_slug }}:latest .
+	python -m pip install -e ".[dev,test]"
