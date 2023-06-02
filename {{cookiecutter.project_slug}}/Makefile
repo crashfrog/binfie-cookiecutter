@@ -26,6 +26,10 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
+init: ## initialize and pull any submodules
+	git submodule init
+	git submodule update
+
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 clean-build: ## remove build artifacts
@@ -88,14 +92,13 @@ release: dist ## package and upload a release
 	twine upload dist/*
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+	python -m build
 	ls -l dist
 
 # Not sure if this is the right approach
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	python -m pip install .
 
 dev: clean ## install the dev dependencies and install in edit mode
-	python setup.py develop
+	python -m pip install -e ".[dev,test]"
