@@ -22,7 +22,7 @@ import logging
 @click.version_option(package_name="{{ cookiecutter.project_slug }}", message="%(prog)s %(version)s")
 {%- if cookiecutter.use_logging %}
 @click.option("-v", "--verbose", count=True)
-{% endif %}
+{%- endif %}
 def cli(verbose=0):
     "{{cookiecutter.project_short_description}}"
     {%- if cookiecutter.use_logging %}
