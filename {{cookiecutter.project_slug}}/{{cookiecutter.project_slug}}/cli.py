@@ -18,7 +18,7 @@ import logging
 
 
 
-@click.command("{{ cookiecutter.project_shell_cmd }}")
+@click.group()
 @click.version_option(package_name="{{ cookiecutter.project_slug }}", message="%(prog)s %(version)s")
 {%- if cookiecutter.use_logging %}
 @click.option("-v", "--verbose", count=True)
