@@ -1,14 +1,14 @@
 {
-    "project_name": "",
     "full_name": "",
     "email": "",
     "github_username": "",
-    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "package_name": "{{ cookiecutter.project_slug|replace('_', '-') }}",
+    "pypi_username": "{{ cookiecutter.github_username }}",
+    "project_name": "",
+    "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '-') }}",
+    "pkg_name": "{{ cookiecutter.project_slug|replace('-', '') }}",
     "project_shell_cmd": "{{ cookiecutter.project_slug|reject('in','aeiou')|join('') }}",
     "use_logging":true,
     "project_short_description": "A Python project in bioinformatics that will surely be the next great thing.",
-    "pypi_username": "{{ cookiecutter.github_username }}",
     "version": "0.1.0",
     "use_pytest": "y",
     "open_source_license": ["MIT license", "GNU General Public License v3", "Public domain", "US Government Work Product", "BSD license", "ISC license", "Apache Software License 2.0",  "Not open source"]
