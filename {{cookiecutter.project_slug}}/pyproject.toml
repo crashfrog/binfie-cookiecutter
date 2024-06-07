@@ -45,7 +45,7 @@ requires = ["setuptools>=61.0", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "{{ cookiecutter.project_slug }}"
+name = "{{ cookiecutter.pkg_name }}"
 authors = [
     {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"},
 ]
