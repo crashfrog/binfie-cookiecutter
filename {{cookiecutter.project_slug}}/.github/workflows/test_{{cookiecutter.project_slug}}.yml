@@ -7,7 +7,7 @@ on:
     branches: [ master, main, dev ]
     
 jobs:
-  {{cookiecutter.project_slug}}:
+  {{cookiecutter.pkg_name}}:
     runs-on: $\{\{ matrix.os \}\}
     strategy:
       matrix:

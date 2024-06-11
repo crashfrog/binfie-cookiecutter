@@ -19,13 +19,13 @@ jobs:
       run: pip install cookiecutter
 
     - name: Generate a fake project from the template
-      run: cookiecutter . --no-input full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
+      run: cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
 
-    - name: Navigate to generated project directory
-      run: cd $(ls -d */ | head -n 1)
+    - name: Examine the project
+      run : ls -l ~/test_project
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: cd ~/test_project && docker build . --file Dockerfile --tag testproject:$(date +%s)
 
     - name: Run tests
-      run: make test
+      run: cd ~/test_project && make test
