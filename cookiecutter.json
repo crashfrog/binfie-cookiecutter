@@ -4,12 +4,34 @@
     "github_username": "",
     "pypi_username": "{{ cookiecutter.github_username }}",
     "project_name": "",
-    "project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
+    "__project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
     "pkg_name": "{{ cookiecutter.project_slug|replace('_', '') }}",
     "project_shell_cmd": "{{ cookiecutter.project_slug|reject('in','aeiou')|join('') }}",
-    "use_logging":true,
     "project_short_description": "A Python project in bioinformatics that will surely be the next great thing.",
+    "wf_lang": [null, "Nextflow", "Snakemake", "WDL", "CWL"],
     "version": "0.1.0",
-    "use_pytest": "y",
-    "open_source_license": ["MIT license", "GNU General Public License v3", "Public domain", "US Government Work Product", "BSD license", "ISC license", "Apache Software License 2.0",  "Not open source"]
+    "open_source_license": ["MIT license", "GNU General Public License v3", "Public domain", "US Government Work Product", "BSD license", "ISC license", "Apache Software License 2.0",  "Not open source"],
+    "__prompts__":{
+      "full_name": "Your full name",
+      "email": "Your email",
+      "github_username": "Your GitHub username",
+      "project_name": "Your project name",
+      "project_short_description": "A short description or stinger your project, mostly for docs",
+      "project_shell_cmd":"Shell command; set to empty string to disable",
+      "open_source_license": {
+        "__prompt__": "Choose a license for your project",
+        "MIT license":"Permissive license that requires inclusion of the copyright notice",
+        "GNU General Public License v3":"Share-alike copyleft license that requires derivative works to be licensed under the same terms",
+        "Public domain":"not subject to copyright",
+        "US Government Work Product":"not subject to copyright in the US under 17 USC § 105",
+        "BSD license":"Permissive, almost unrestricted license that does not endorse derivative works",
+        "ISC license":"Permissive, almost unrestricted license in simple language",
+        "Apache Software License 2.0":"Permissive, BSD-like license that also provides an express grant of patent rights from contributors",
+        "Not open source":"Closed source or proprietary/custom license (provided by you)"
+      },
+      "wf_lang": {
+        "__prompt__": "Choose an optional workflow language for your project"
+      },
+      "version":"Initial version of your project",
+    }
   }
