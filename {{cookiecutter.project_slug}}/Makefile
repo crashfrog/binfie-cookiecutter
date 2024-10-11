@@ -28,6 +28,9 @@ help:
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
+install-test: clean ## install the package to the active Python's site-packages
+	python -m pip install .[test]
+
 clean-build: ## remove build artifacts
 	rm -fr build/
 	rm -fr dist/
@@ -47,20 +50,20 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8
+lint: install-test ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
-test: ## run tests quickly with the default Python
+test: install-test ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
 	pytest
 {%- else %}
 	python setup.py test
 {%- endif %}
 
-test-all: ## run tests on every Python version with tox
+test-all: install-test ## run tests on every Python version with tox
 	tox
 
-coverage: ## check code coverage quickly with the default Python
+coverage: install-test ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest
 {%- else %}
@@ -70,7 +73,7 @@ coverage: ## check code coverage quickly with the default Python
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
-docs: ## generate Sphinx HTML documentation, including API docs
+docs: dev ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
 	rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
@@ -78,16 +81,16 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
-servedocs: docs ## compile the docs watching for changes
+servedocs: dev docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-revise: ## update version, tag, and history using zest.releaser
+revise: dev ## update version, tag, and history using zest.releaser
 	prerelease
 
 release: dist ## package and upload a release
 	twine upload dist/*
 
-dist: clean ## builds source and wheel package
+dist: dev clean ## builds source and wheel package
 	python setup.py sdist
 	python setup.py bdist_wheel
 	ls -l dist
@@ -95,7 +98,10 @@ dist: clean ## builds source and wheel package
 # Not sure if this is the right approach
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	python -m pip install .
 
 dev: clean ## install the dev dependencies and install in edit mode
-	python setup.py develop
+	python -m pip install -e .[dev]
+
+container: ## create the latest version of the container image
+	docker build -t {{cookiecutter.github_username}}/{{ cookiecutter.project_slug }}:latest .
