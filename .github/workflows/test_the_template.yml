@@ -24,6 +24,9 @@ jobs:
     - name: Navigate to generated project directory
       run: cd test_project/
 
+    - name: List the contents
+      run: ls -la
+
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag testproject:$(date +%s)
 
