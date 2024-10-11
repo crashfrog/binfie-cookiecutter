@@ -2,9 +2,7 @@
 import click
 {% endif %}
 
-{%- if cookiecutter.use_logging %}
 import logging
-{% endif %}
 
 ## https://click.palletsprojects.com/en/8.1.x/
 
@@ -17,22 +15,25 @@ import logging
 ## @click.option('--shout/--no-shout', default=False)
 
 
-
+{% if cookiecutter.project_shell_cmd %}
 @click.group()
-@click.version_option(package_name="{{ cookiecutter.project_slug }}", message="%(prog)s %(version)s")
-{%- if cookiecutter.use_logging %}
+@click.version_option(package_name="{{ cookiecutter.pkg_name }}", message="%(prog)s %(version)s")
 @click.option("-v", "--verbose", count=True)
-{%- endif %}
 def cli(verbose=0):
     "{{cookiecutter.project_short_description}}"
-    {%- if cookiecutter.use_logging %}
     log_level = {0:60, 1:30, 2:20, 3:10}[verbose]
     logging.basicConfig(level=log_level,
                         format='[%(asctime)s][%(name)-12s][%(levelname)-8s] %(message)s',
                         datefmt='%m-%d %H:%M')
-    {% else %}
-    pass
-    {% endif %}
+
 
 if __name__ == '__main__':
     cli()
+{% else %}
+def main():
+    "do stuff"
+    pass
+
+if __name__ == '__main__':
+    main()
+{% endif %}

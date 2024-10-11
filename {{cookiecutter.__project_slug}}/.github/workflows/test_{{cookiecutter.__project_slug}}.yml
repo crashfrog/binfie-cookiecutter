@@ -22,24 +22,20 @@ jobs:
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
         with:
-          activate-environment: {{cookiecutter.project_slug}}
+          activate-environment: {{cookiecutter.__project_slug}}
           auto-activate-base: false
 
       - name: Setup Environment for {{cookiecutter.project_name}}
         run: |
           conda env create -f environment.yml
-          conda activate {{cookiecutter.project_slug}}
+          conda activate {{cookiecutter.__project_slug}}
 
       - name: Environment Information
         run: uname -a && env
 
       - name: Run Test Suite
         run: |
-          {%- if cookiecutter.use_pytest == 'y' %}
           pytest
-          {%- else %}
-          python3 -m test
-          {%- endif %}
 
       {%- if cookiecutter.project_shell_cmd %}
       - name: Test Usage and Version
