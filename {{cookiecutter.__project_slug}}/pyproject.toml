@@ -75,11 +75,10 @@ Issues = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.
 test = [
     'pytest',
     'pytest-runner',
+    'hypothesis',
     ]
 dev = [
     'configparser',
-    'pytest',
-    'hypothesis',
     'black',
     'flake8',
     'sphinx',
