@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Tests for `{{ cookiecutter.project_slug }}` package."""
+"""Tests for `{{ cookiecutter.pkg_name }}` package."""
 
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
@@ -8,11 +8,9 @@ import pytest
 import unittest
 {%- endif %}
 
-import {{ cookiecutter.project_slug }}
+import {{ cookiecutter.pkg_name }}
 
 {%- if cookiecutter.use_pytest == 'y' %}
-
-
 @pytest.fixture
 def response():
     """Sample pytest fixture.
@@ -23,7 +21,7 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-def test_{{cookiecutter.project_slug}}(response):
+def test_{{cookiecutter.pkg_name}}(response):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
@@ -31,8 +29,8 @@ def test_{{cookiecutter.project_slug}}(response):
 {%- else %}
 
 
-class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
-    """Tests for `{{ cookiecutter.project_slug }}` package."""
+class Test{{ cookiecutter.project_slug|title|replace('-', '') }}(unittest.TestCase):
+    """Tests for `{{ cookiecutter.pkg_name }}` package."""
 
     def setUp(self):
         """Set up test fixtures, if any."""
