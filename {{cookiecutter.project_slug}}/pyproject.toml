@@ -72,9 +72,9 @@ Homepage = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutte
 Issues = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues'
 
 [project.optional-dependencies]
-test = [    {%- if cookiecutter.use_pytest == 'y' %}'pytest',
+test = [
+    'pytest',
     'pytest-runner',
-    {%- endif %}
     ]
 dev = [
     'configparser',
