@@ -21,11 +21,9 @@ jobs:
     - name: Generate a fake project from the template
       run: cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
 
-    - name: Examine the project
-      run : ls -l ~/test_project
+    - name: Run tests
+      run: cd ~/test_project && make test
 
     - name: Build the Docker image
       run: cd ~/test_project && docker build . --file Dockerfile --tag testproject:$(date +%s)
 
-    - name: Run tests
-      run: cd ~/test_project && make test
