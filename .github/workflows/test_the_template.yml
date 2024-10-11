@@ -19,10 +19,10 @@ jobs:
       run: pip install cookiecutter
 
     - name: Generate a fake project from the template
-      run: cookiecutter . --no-input full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
+      run: cookiecutter . --no-input -o ~/test_project/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
 
     - name: Navigate to generated project directory
-      run: cd test_project/
+      run: cd ~/test_project/
 
     - name: List the contents
       run: ls -la
