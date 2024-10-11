@@ -52,7 +52,7 @@ authors = [
 description = "{{ cookiecutter.project_short_description }}"
 readme = {file = "README.md", content-type="text/markdown"}
 requires-python = ">=3.7"
-keywords = ["{{ cookiecutter.project_slug }}"]
+keywords = ["{{ cookiecutter.__project_slug }}"]
 classifiers = [
         'Natural Language :: English',
         'Programming Language :: Python :: 3.7',
@@ -64,12 +64,12 @@ dynamic = ["version"]
 
 {% if cookiecutter.project_shell_cmd %}
 [project.scripts]
-    {{ cookiecutter.project_shell_cmd }} = '{{ cookiecutter.project_slug }}.cli:cli'
+    {{ cookiecutter.project_shell_cmd }} = '{{ cookiecutter.__project_slug }}.cli:cli'
 {%- endif %}
 
 [project.urls]
-Homepage = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}'
-Issues = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues'
+Homepage = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_slug }}'
+Issues = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_slug }}/issues'
 
 [project.optional-dependencies]
 test = [

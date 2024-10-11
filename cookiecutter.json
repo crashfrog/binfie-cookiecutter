@@ -5,8 +5,8 @@
     "pypi_username": "{{ cookiecutter.github_username }}",
     "project_name": "",
     "__project_slug": "{{ cookiecutter.project_name|lower|replace(' ', '_')|replace('-', '_') }}",
-    "pkg_name": "{{ cookiecutter.project_slug|replace('_', '') }}",
-    "project_shell_cmd": "{{ cookiecutter.project_slug|reject('in','aeiou')|join('') }}",
+    "pkg_name": "{{ cookiecutter.__project_slug|replace('_', '') }}",
+    "project_shell_cmd": "{{ cookiecutter.__project_slug|reject('in','aeiou')|join('') }}",
     "project_short_description": "A Python project in bioinformatics that will surely be the next great thing.",
     "wf_lang": [null, "Nextflow", "Snakemake", "WDL", "CWL"],
     "version": "0.1.0",
@@ -20,18 +20,18 @@
       "project_shell_cmd":"Shell command; set to empty string to disable",
       "open_source_license": {
         "__prompt__": "Choose a license for your project",
-        "MIT license":"Permissive license that requires inclusion of the copyright notice",
-        "GNU General Public License v3":"Share-alike copyleft license that requires derivative works to be licensed under the same terms",
-        "Public domain":"not subject to copyright",
-        "US Government Work Product":"not subject to copyright in the US under 17 USC § 105",
-        "BSD license":"Permissive, almost unrestricted license that does not endorse derivative works",
-        "ISC license":"Permissive, almost unrestricted license in simple language",
-        "Apache Software License 2.0":"Permissive, BSD-like license that also provides an express grant of patent rights from contributors",
+        "MIT license":"MIT License - Permissive license that requires inclusion of the copyright notice",
+        "GNU General Public License v3":"GNU General Public License v3 - Share-alike copyleft license that requires derivative works to be licensed under the same terms",
+        "Public domain":"Public domain - not subject to copyright",
+        "US Government Work Product":"US Govt work product not subject to copyright in the US under 17 USC § 105",
+        "BSD license":"BSD License - Permissive, almost unrestricted license that does not endorse derivative works",
+        "ISC license":"ISC License - Permissive, almost unrestricted license in simple language",
+        "Apache Software License 2.0":"Apache License 2.0 - Permissive, BSD-like license that also provides an express grant of patent rights from contributors",
         "Not open source":"Closed source or proprietary/custom license (provided by you)"
       },
       "wf_lang": {
         "__prompt__": "Choose an optional workflow language for your project"
       },
-      "version":"Initial version of your project",
+      "version":"Initial version of your project"
     }
   }

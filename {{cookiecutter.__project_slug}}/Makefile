@@ -55,32 +55,25 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: install-test ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+	flake8 {{ cookiecutter.__project_slug }} tests
 
 test: install-test ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	pytest
-{%- else %}
-	python setup.py test
-{%- endif %}
+
 
 test-all: install-test ## run tests on every Python version with tox
 	tox
 
 coverage: install-test ## check code coverage quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
-	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-{%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
-{%- endif %}
+	coverage run --source {{ cookiecutter.__project_slug }} -m pytest
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: dev ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/{{ cookiecutter.project_slug }}.rst
+	rm -f docs/{{ cookiecutter.__project_slug }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
+	sphinx-apidoc -o docs/ {{ cookiecutter.__project_slug }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
@@ -104,4 +97,7 @@ install: clean ## install the package to the active Python's site-packages
 	python -m pip install .
 
 dev: clean ## install the dev dependencies and install in edit mode
-	python -m pip install -e ".[dev,test]"
+	python -m pip install -e .[dev]
+
+container: ## create the latest version of the container image
+	docker build -t {{cookiecutter.github_username}}/{{ cookiecutter.__project_slug }}:latest .
