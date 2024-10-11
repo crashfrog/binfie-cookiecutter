@@ -1,4 +1,4 @@
-name: {{cookiecutter.project_slug}}
+name: {{cookiecutter.__project_slug}}
 channels:
  - bioconda
  - conda-forge

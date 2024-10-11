@@ -6,7 +6,7 @@
 
 ## Installation
 
-`pip install {{cookiecutter.project_slug}}`
+`pip install {{cookiecutter.pkg_name}}`
 
 {%- if cookiecutter.project_shell_cmd %}
 ## Usage
