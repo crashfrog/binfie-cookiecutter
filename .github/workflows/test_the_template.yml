@@ -27,3 +27,37 @@ jobs:
     - name: Build the Docker image
       run: cd ~/test_project && docker build . --file Dockerfile --tag testproject:$(date +%s)
 
+    - name: Test licenses
+      run: |
+        cookiecutter . --no-input -o ~/a  open_source_license="MIT license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/b  open_source_license="BSD license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/c  open_source_license="ISC license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/d  open_source_license="US Government Work Product" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/e  open_source_license="Apache Software License 2.0" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/f  open_source_license="GNU General Public License v3" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/g  open_source_license="Not open source" full_name="John Doe" email="jon doe" email="jondoe.jon.doe" github_username="johndoe" project_name="Test Project"
+
+    - name: Test workflow languages
+      run: |
+        cookiecutter . --no-input -o ~/h  workflow_language="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/i  workflow_language="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/j  workflow_language="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/k  workflow_language="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
+
+    - name: Test makefile
+      run: |
+        cd ~/test_project && make
+        cd ~/test_project && make help
+        cd ~/test_project && make init
+        cd ~/test_project && make clean
+        cd ~/test_project && make install-test
+        cd ~/test_project && make clean-build
+        cd ~/test_project && make clean-pyc
+        cd ~/test_project && make clean-test
+        cd ~/test_project && make lint
+        cd ~/test_project && make test-all
+        cd ~/test_project && make coverage
+        cd ~/test_project && make docs
+        cd ~/test_project && make revise
+        cd ~/test_project && make dist
+        cd ~/test_project && make dev

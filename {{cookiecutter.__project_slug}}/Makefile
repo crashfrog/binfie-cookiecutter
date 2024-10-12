@@ -54,8 +54,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: install-test ## check style with flake8
-	flake8 {{ cookiecutter.__project_slug }} tests
+lint: dev ## check style with flake8
+	flake8 --extend-ignore=E266,E203,W503,E303,F401,F302 {{ cookiecutter.pkg_name }}
 
 test: install-test ## run tests quickly with the default Python
 	pytest
@@ -64,7 +64,7 @@ test: install-test ## run tests quickly with the default Python
 test-all: install-test ## run tests on every Python version with tox
 	tox
 
-coverage: install-test ## check code coverage quickly with the default Python
+coverage: dev ## check code coverage quickly with the default Python
 	coverage run --source {{ cookiecutter.__project_slug }} -m pytest
 	coverage report -m
 	coverage html
@@ -84,7 +84,7 @@ servedocs: dev docs ## compile the docs watching for changes
 revise: dev ## update version, tag, and history using zest.releaser
 	prerelease
 
-release: dist ## package and upload a release
+release: dev dist ## package and upload a release
 	twine upload dist/*
 
 dist: clean ## builds source and wheel package
