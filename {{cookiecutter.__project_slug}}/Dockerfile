@@ -1,4 +1,3 @@
-{%- if cookiecutter.project_shell_cmd %}
 # The build-stage image:
 FROM continuumio/miniconda3 AS build
 
@@ -23,18 +22,15 @@ RUN /venv/bin/conda-unpack
 # The runtime-stage image; we can use Debian as the
 # base image since the Conda env also includes Python
 # for us.
-FROM debian:buster AS runtime
+FROM debian:bookworm AS runtime
 LABEL maintainer="{{cookiecutter.email}}"
 
 # Copy /venv from the previous stage:
 COPY --from=build /venv /venv
-
+{%- if cookiecutter.project_shell_cmd %}
 # When image is run, run the code with the environment
 # activated:
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT source /venv/bin/activate && \
            {{cookiecutter.project_shell_cmd}})"
-{%- else %}
-FROM debian:buster AS runtime
-LABEL maintainer="{{cookiecutter.email}}"
 {%- endif %}
