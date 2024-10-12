@@ -29,9 +29,9 @@ jobs:
 
     - name: Test licenses
       run: |
-        cookiecutter . --no-input -o /dev/null  open_source_license="MIT License" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o /dev/null  open_source_license="BSD License" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o /dev/null  open_source_license="ISC License" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o /dev/null  open_source_license="MIT license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o /dev/null  open_source_license="BSD license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o /dev/null  open_source_license="ISC license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
         cookiecutter . --no-input -o /dev/null  open_source_license="US Government Work Product" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
         cookiecutter . --no-input -o /dev/null  open_source_license="Apache Software License 2.0" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
         cookiecutter . --no-input -o /dev/null  open_source_license="GNU General Public License v3" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
