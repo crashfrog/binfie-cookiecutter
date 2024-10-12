@@ -60,10 +60,6 @@ lint: dev ## check style with flake8
 test: install-test ## run tests quickly with the default Python
 	pytest
 
-
-test-all: install-test ## run tests on every Python version with tox
-	tox
-
 coverage: dev ## check code coverage quickly with the default Python
 	coverage run --source {{ cookiecutter.__project_slug }} -m pytest
 	coverage report -m
