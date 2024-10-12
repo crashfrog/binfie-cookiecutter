@@ -60,23 +60,14 @@ lint: dev ## check style with flake8
 test: install-test ## run tests quickly with the default Python
 	pytest
 
-
-test-all: install-test ## run tests on every Python version with tox
-	tox
-
-coverage: dev ## check code coverage quickly with the default Python
-	coverage run --source {{ cookiecutter.__project_slug }} -m pytest
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+coverage: clean-test install install-test dev ## check code coverage quickly with the default Python
+	coverage run --source {{ cookiecutter.pkg_name }} -m pytest
+	coverage report -m --include={{ cookiecutter.pkg_name }}/*
 
 docs: dev ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.__project_slug }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ {{ cookiecutter.__project_slug }}
-	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	$(BROWSER) docs/_build/html/index.html
+	sphinx-apidoc -o docs/ {{ cookiecutter.pkg_name }}
 
 servedocs: dev docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .

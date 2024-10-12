@@ -51,13 +51,8 @@ jobs:
         cd ~/test_project && make init
         cd ~/test_project && make clean
         cd ~/test_project && make install-test
-        cd ~/test_project && make clean-build
-        cd ~/test_project && make clean-pyc
-        cd ~/test_project && make clean-test
         cd ~/test_project && make lint
-        cd ~/test_project && make test-all
         cd ~/test_project && make coverage
         cd ~/test_project && make docs
         cd ~/test_project && make revise
         cd ~/test_project && make dist
-        cd ~/test_project && make dev

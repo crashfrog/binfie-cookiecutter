@@ -85,7 +85,6 @@ dev = [
     'black',
     'flake8',
     'sphinx',
-    'tox',
     'twine',
     'coverage',
     'zest.releaser',

@@ -6,6 +6,7 @@ A stripped-down Python project cookiecutter for the stuff I usually do. Updated 
 2) Installs `click`
 3) Puts in a useful Makefile (`make help`)
 4) Dockerfile
+4) Optional "get started" stubs for WDL, CWL, Nextflow, and Snakemake
 5) Github actions that run tests
 
 ## Usage
@@ -20,6 +21,8 @@ Future:
 1) Checks PyPI, Bioconda, and Galaxy for project name collision
 
 Usage:
+
+0) Install cookiecutter: `pip install cookiecutter`
 
 1) Run the cookiecutter: `cookiecutter gh:crashfrog/binfie-cookiecutter`
 
