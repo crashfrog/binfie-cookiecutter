@@ -63,8 +63,6 @@ test: install-test ## run tests quickly with the default Python
 coverage: install-test dev ## check code coverage quickly with the default Python
 	coverage run --source {{ cookiecutter.__project_slug }} -m pytest
 	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
 
 docs: dev ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.__project_slug }}.rst
