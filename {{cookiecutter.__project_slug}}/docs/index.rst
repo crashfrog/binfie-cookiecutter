@@ -1,9 +1,9 @@
-.. {{cookiecutter.__project_name}} documentation master file, created by
-    sphinx-quickstart on {{cookiecutter.__date}}.
+.. {{cookiecutter.project_name}} documentation master file, created by
+    sphinx-quickstart on {% now 'local', '%Y%m%d' %}.
     You can adapt this file completely to your liking, but it should at least
     contain the root `toctree` directive.
 
-Welcome to {{cookiecutter.__project_name}}'s documentation!
+Welcome to {{cookiecutter.project_name}}'s documentation!
 ============================================================
 
 .. toctree::
