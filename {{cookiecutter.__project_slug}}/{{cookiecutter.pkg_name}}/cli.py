@@ -14,14 +14,15 @@ import logging
 ## @click.option('--shout/--no-shout', default=False)
 
 
-
 @click.group()
 @click.version_option(
-    package_name="{{ cookiecutter.pkg_name }}", 
+    package_name="{{ cookiecutter.pkg_name }}",
     message="%(prog)s %(version)s")
 @click.option("-v", "--verbose", count=True)
-def cli(verbose=0): 
-    "{{cookiecutter.project_short_description}}"
+def cli(verbose=0):
+    """
+    {{cookiecutter.project_short_description|wordwrap(70, wrapstring='\n    ')}}.
+    """
     log_level = [60, 30, 20, 10][verbose]
     logging.basicConfig(
         level=log_level,
@@ -32,8 +33,10 @@ def cli(verbose=0):
 if __name__ == '__main__':
     cli()
 {% else %}
-def main(verbose=0): 
-    "{{cookiecutter.project_short_description}}"
+def main(verbose=0):
+    """
+    {{cookiecutter.project_short_description|wordwrap(70, wrapstring='\n    ')}}.
+    """
     log_level = [60, 30, 20, 10][verbose]
     logging.basicConfig(
         level=log_level,
