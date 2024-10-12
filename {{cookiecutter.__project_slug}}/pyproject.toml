@@ -51,14 +51,17 @@ authors = [
 ]
 description = "{{ cookiecutter.project_short_description }}"
 readme = {file = "README.md", content-type="text/markdown"}
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 keywords = ["{{ cookiecutter.__project_slug }}"]
 classifiers = [
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
 ]
 dependencies = [
-    {%- if cookiecutter.project_shell_cmd %}"Click ~= 8.1.3"{% endif %}
+    {%- if cookiecutter.project_shell_cmd %}"Click",{% endif %}
+    {%- if cookiecutter.wf_lang == 'WDL' %}"miniwdl",{% endif %}
+    {%- if cookiecutter.wf_lang == 'CWL' %}"cwltool",{% endif %}
+    {%- if cookiecutter.wf_lang == 'Snakemake' %}"snakemake",{% endif %}
 ]
 dynamic = ["version"]
 
