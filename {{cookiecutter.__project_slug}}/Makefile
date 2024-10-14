@@ -60,9 +60,9 @@ lint: dev ## check style with flake8
 test: install-test ## run tests quickly with the default Python
 	pytest
 
-coverage: install install-test dev ## check code coverage quickly with the default Python
-	coverage run --source {{ cookiecutter.__project_slug }} -m pytest --cov={{ cookiecutter.__project_slug }}
-	coverage report -m
+coverage: clean-test install install-test dev ## check code coverage quickly with the default Python
+	coverage run --source {{ cookiecutter.pkg_name }} -m pytest
+	coverage report -m --include={{ cookiecutter.pkg_name }}/*
 
 docs: dev ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.__project_slug }}.rst
