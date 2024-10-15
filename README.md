@@ -11,6 +11,10 @@ A stripped-down Python project cookiecutter for the stuff I usually do. Updated 
 6) README, LICENSE, CONTRIBUTING, CODE-OF-CONDUCT - develop in the open from day one
 7) Overthrow the tyrrany of the blank page with stubs for documentation
 
+## Names
+
+Pick a good name! Binfie-cookiecutter checks PyPI, Bioconda, and Galaxy (IUC Toolshed) for name collisions.
+
 ## Packaging
 
 Binfie-cookiecutter uses pyproject.toml and sets your project up for:
@@ -35,10 +39,6 @@ Binfie-cookiecutter sets up GitHub actions to automatically run your tests when 
 
 
 Now you have a bioinformatics project. Shell into the directory and run `make help`.
-
-Future:
-
-1) Checks PyPI, Bioconda, and Galaxy for project name collision
 
 Usage:
 
