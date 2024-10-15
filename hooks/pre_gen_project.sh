@@ -24,13 +24,13 @@ else
     echo "Good news! Package '$PKG_NAME' does not exist on Bioconda."
 fi
 
-# Query Galaxy Toolshed to check if the tool exists
+# Query Galaxy Toolshed to see if the response contains the phrase "contains no repositories"
 
-response=$(curl -s -o /dev/null -w "%{http_code}" https://toolshed.g2.bx.psu.edu/view/$PKG_NAME/)
+response=$(curl -s https://toolshed.g2.bx.psu.edu/view/$PKG_NAME)
 
-if [ "$response" -eq 200 ]; then
-    echo "Tool '$PKG_NAME' exists on Galaxy Toolshed."
-    exit 1
+if [[ $response == *"contains no repositories"* ]]; then
+    echo "Package '$PKG_NAME' does not exist on Galaxy Toolshed."
 else
-    echo "Good news! Tool '$PKG_NAME' does not exist on Galaxy Toolshed."
+    echo "Package '$PKG_NAME' exists on Galaxy Toolshed."
+    exit 1
 fi
