@@ -2,6 +2,11 @@ name: Test Cookiecutter Template
 
 on: [push, pull_request]
 
+env:
+  FAKE_PROJECT: My Cool Project
+  FAKE_DIR: mycoolproject
+  FAKE_PKG: mycoolproject
+
 jobs:
   test-template:
     runs-on: ubuntu-latest
@@ -20,39 +25,39 @@ jobs:
 
     - name: Generate a fake project from the template
       run: |
-        cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
+        cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT" open_source_license="Public domain"
 
     - name: Run tests
-      run: cd ~/test_project && make test
+      run: cd ~/$FAKE_DIR && make test
 
     - name: Build the Docker image
-      run: cd ~/test_project && docker build . --file Dockerfile --tag testproject:$(date +%s)
+      run: cd ~/$FAKE_DIR && docker build . --file Dockerfile --tag $FAKE_PKG:$(date +%s)
 
     - name: Test licenses
       run: |
-        cookiecutter . --no-input -o ~/a  open_source_license="MIT license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/b  open_source_license="BSD license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/c  open_source_license="ISC license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/d  open_source_license="US Government Work Product" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/e  open_source_license="Apache Software License 2.0" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/f  open_source_license="GNU General Public License v3" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/g  open_source_license="Not open source" full_name="John Doe" email="jon doe" email="jondoe.jon.doe" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/a  open_source_license="MIT license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/b  open_source_license="BSD license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/c  open_source_license="ISC license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/d  open_source_license="US Government Work Product" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/e  open_source_license="Apache Software License 2.0" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/f  open_source_license="GNU General Public License v3" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/g  open_source_license="Not open source" full_name="John Doe" email="jon doe" email="jondoe.jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
 
     - name: Test workflow languages
       run: |
-        cookiecutter . --no-input -o ~/h  workflow_language="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/i  workflow_language="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/j  workflow_language="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
-        cookiecutter . --no-input -o ~/k  workflow_language="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="Test Project"
+        cookiecutter . --no-input -o ~/h  workflow_language="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/i  workflow_language="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/j  workflow_language="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/k  workflow_language="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
 
     - name: Test makefile
       run: |
-        cd ~/test_project && make
-        cd ~/test_project && make help
-        cd ~/test_project && make init
-        cd ~/test_project && make clean
-        cd ~/test_project && make install-test
-        cd ~/test_project && make lint
-        cd ~/test_project && make coverage
-        cd ~/test_project && make docs
-        cd ~/test_project && make dist
+        cd ~/$FAKE_DIR && make
+        cd ~/$FAKE_DIR && make help
+        cd ~/$FAKE_DIR && make init
+        cd ~/$FAKE_DIR && make clean
+        cd ~/$FAKE_DIR && make install-test
+        cd ~/$FAKE_DIR && make lint
+        cd ~/$FAKE_DIR && make coverage
+        cd ~/$FAKE_DIR && make docs
+        cd ~/$FAKE_DIR && make dist
