@@ -26,7 +26,7 @@ fi
 
 # Query Galaxy Toolshed to see if the response contains the phrase "contains no repositories"
 
-response=$(curl -s https://toolshed.g2.bx.psu.edu/repository/browse_tool_shed?repository_name=$PKG_NAME)
+response=$(curl -s https://toolshed.g2.bx.psu.edu/view/$PKG_NAME)
 
 if [[ $response == *"contains no repositories"* ]]; then
     echo "Package '$PKG_NAME' does not exist on Galaxy Toolshed."
