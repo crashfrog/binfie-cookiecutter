@@ -19,7 +19,9 @@ jobs:
       run: pip install cookiecutter
 
     - name: Generate a fake project from the template
-      run: cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
+      run: |
+        cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="Test Project" open_source_license="Public domain"
+        cd ~/test_project && git commit -m 'initial commit'
 
     - name: Run tests
       run: cd ~/test_project && make test
