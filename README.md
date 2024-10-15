@@ -8,11 +8,31 @@ A stripped-down Python project cookiecutter for the stuff I usually do. Updated 
 4) Dockerfile
 4) Optional "get started" stubs for WDL, CWL, Nextflow, and Snakemake
 5) Github actions that run tests
+6) README, LICENSE, CONTRIBUTING, CODE-OF-CONDUCT - develop in the open from day one
+7) Overthrow the tyrrany of the blank page with stubs for documentation
+
+## Packaging
+
+Binfie-cookiecutter uses pyproject.toml and sets your project up for:
+
+1) Building wheels
+2) Publishing to pypi.org
+3) Building a conda package and providing a bioconda recipe
+4) Building a Docker container
+
+## Workflows
+
+Binfie-cookiecutter optionally sets you up with stubs for Nextflow, WDL, CWL, and Snakemake.
+
+## Actions and Tests
+
+Binfie-cookiecutter sets up GitHub actions to automatically run your tests when you push commits, and to build your Docker container.
 
 ## Usage
 
     pip install cookiecutter
     cookiecutter gh:crashfrog/binfie-cookiecutter
+
 
 Now you have a bioinformatics project. Shell into the directory and run `make help`.
 
