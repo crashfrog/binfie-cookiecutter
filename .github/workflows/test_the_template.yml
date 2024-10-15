@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   FAKE_PROJECT: My Cool Project
-  FAKE_DIR: mycoolproject
+  FAKE_DIR: my_cool_project
   FAKE_PKG: mycoolproject
 
 jobs:
