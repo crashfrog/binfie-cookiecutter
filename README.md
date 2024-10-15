@@ -13,7 +13,7 @@ A stripped-down Python project cookiecutter for the stuff I usually do. Updated 
 
 ## Names
 
-Pick a good name! Binfie-cookiecutter checks PyPI, Bioconda, and Galaxy (IUC Toolshed) for name collisions.
+Pick a good name! Binfie-cookiecutter checks PyPI, Bioconda, and Galaxy (IUC Toolshed) for name collisions. (You can turn this off with `__name_check=false`.)
 
 ## Packaging
 
