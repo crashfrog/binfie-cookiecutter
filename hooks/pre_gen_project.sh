@@ -3,6 +3,7 @@
 PROJECT_NAME='{{cookiecutter.project_name}}'
 PKG_NAME='{{cookiecutter.pkg_name}}'
 
+{% if cookiecutter.__name_check %}
 # Query PyPI to check if the project exists
 response=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/project/$PKG_NAME/)
 
@@ -34,3 +35,4 @@ else
     echo "Package '$PKG_NAME' exists on Galaxy Toolshed."
     exit 1
 fi
+{% endif %}
