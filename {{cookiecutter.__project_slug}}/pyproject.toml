@@ -1,50 +1,4 @@
 [project]
-name = "{{cookiecutter.project_name}}"
-dynamic = ["version", "authors"]
-description = "{{cookiecutter.project_short_description}}"
-dependencies = [
-    "click"
-]
-readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3"
-]
-
-[project.urls]
-Homepage = "{{cookiecutter.project_url}}"
-Issues = "{{cookiecutter.project_url}}/issues"
-Documentation = "{{cookiecutter.project_url}}/docs"
-
-
-{%- if cookiecutter.project_shell_cmd %}
-[project.scripts]
-{{ cookiecutter.project_shell_cmd }} = "{{ cookiecutter.project_slug }}.cli:cli"
-{% endif %}
-
-[project.optional-dependencies]
-dev = [
-    "flake8",
-    "black",
-    "tox",
-    "sphinx",
-    "twine",
-    "setuptools_scm",
-    "coverage",
-    "zest.releaser"
-]
-test = [
-    "pytest",
-    "pytest-cov",
-    "pytest-runner",
-    "hypothesis"
-]
-
-[build-system]
-requires = ["setuptools>=61.0", "setuptools_scm"]
-build-backend = "setuptools.build_meta"
-
-[project]
 name = "{{ cookiecutter.pkg_name }}"
 authors = [
     {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"},
@@ -65,14 +19,17 @@ dependencies = [
 ]
 dynamic = ["version"]
 
-{% if cookiecutter.project_shell_cmd %}
-[project.scripts]
-    {{ cookiecutter.project_shell_cmd }} = '{{ cookiecutter.__project_slug }}.cli:cli'
-{%- endif %}
-
 [project.urls]
-Homepage = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_slug }}'
-Issues = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_slug }}/issues'
+Homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}"
+Issues = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}/issues"
+Documentation = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}/docs"
+
+
+{%- if cookiecutter.project_shell_cmd %}
+[project.scripts]
+{{ cookiecutter.project_shell_cmd }} = "{{ cookiecutter.__project_slug }}.cli:cli"
+{% endif %}
+
 
 [project.optional-dependencies]
 test = [
@@ -89,6 +46,10 @@ dev = [
     'coverage',
     'zest.releaser',
 ]
+
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages]
 find = {}
