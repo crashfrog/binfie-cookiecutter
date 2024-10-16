@@ -32,23 +32,23 @@ init: ## initialize and pull any submodules
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
-install-test: clean ## install the package to the active Python's site-packages
+install-test: clean 
 	python -m pip install .[test]
 
-clean-build: ## remove build artifacts
+clean-build: 
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +
 
-clean-pyc: ## remove Python file artifacts
+clean-pyc: 
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
-clean-test: ## remove test and coverage artifacts
+clean-test: 
 	rm -fr .tox/
 	rm -f .coverage
 	rm -fr htmlcov/
@@ -78,16 +78,14 @@ revise: dev ## update version, tag, and history using zest.releaser
 release: dev dist ## package and upload a release
 	twine upload dist/*
 
-dist: clean ## builds source and wheel package
+dist: clean
 	python -m build
 	ls -l dist
-
-# Not sure if this is the right approach
 
 install: clean ## install the package to the active Python's site-packages
 	python -m pip install .
 
-dev: clean install-test ## install the dev dependencies and install in edit mode
+dev: clean install-test ## install the dev and test dependencies and install in editable mode
 	python -m pip install -e .[dev]
 
 container: ## create the latest version of the container image
