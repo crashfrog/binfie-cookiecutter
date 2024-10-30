@@ -171,16 +171,21 @@ EOF
 {%- elif cookiecutter.wf_lang == "WDL" %}
 echo "Creating WDL project"
 cat <<- EOF > {{cookiecutter.__project_slug}}.wdl
+# {{cookiecutter.project_name}}
+# {{cookiecutter.project_short_description}}
+# Author: {{cookiecutter.full_name}} <{{cookiecuttter.email}}>
 
-version 1.0
+version 1.2
+
+workflow {{cookiecutter.__project_slug}} {
+    # Define your workflow here
+}
 
 task {{cookiecutter.__project_slug}} {
     # Define your task here
 }
 
-workflow {{cookiecutter.__project_slug}} {
-    # Define your workflow here
-}
+
 
 EOF
 {%- endif %}
