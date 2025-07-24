@@ -1,3 +1,5 @@
+ARG VERSION={{ cookiecutter.version}}
+
 # The build-stage image:
 FROM continuumio/miniconda3 AS build
 
@@ -28,9 +30,17 @@ LABEL maintainer="{{cookiecutter.email}}"
 # Copy /venv from the previous stage:
 COPY --from=build /venv /venv
 {%- if cookiecutter.project_shell_cmd %}
+
 # When image is run, run the code with the environment
 # activated:
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT source /venv/bin/activate && \
            {{cookiecutter.project_shell_cmd}})"
 {%- endif %}
+
+FROM runtime AS galaxy
+
+# For use in Galaxy we need an entrypoint that drops us
+# into Bash
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["/bin/bash"]
