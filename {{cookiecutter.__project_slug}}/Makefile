@@ -89,4 +89,7 @@ dev: clean install-test ## install the dev and test dependencies and install in 
 	python -m pip install -e .[dev]
 
 container: ## create the latest version of the container image
-	docker build -t {{cookiecutter.github_username}}/{{ cookiecutter.__project_slug }}:latest .
+	docker build --build-arg VERSION=$( git describe ) -t {{cookiecutter.github_username}}/{{ cookiecutter.__project_slug }}:latest .
+
+
+

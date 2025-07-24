@@ -5,7 +5,7 @@ PKG_NAME='{{cookiecutter.pkg_name}}'
 
 {% if cookiecutter.__name_check %}
 # Query PyPI to check if the project exists
-response=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/project/$PKG_NAME/)
+response=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/pypi/$PKG_NAME/json)
 
 if [ "$response" -eq 200 ]; then
     echo "Project '$PKG_NAME' exists on PyPI."
