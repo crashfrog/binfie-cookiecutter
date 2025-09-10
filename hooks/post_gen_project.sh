@@ -173,7 +173,7 @@ echo "Creating WDL project"
 cat <<- EOF > {{cookiecutter.__project_slug}}.wdl
 # {{cookiecutter.project_name}}
 # {{cookiecutter.project_short_description}}
-# Author: {{cookiecutter.full_name}} <{{cookiecuttter.email}}>
+# Author: {{cookiecutter.full_name}} <{{cookiecutter.email}}>
 
 version 1.2
 
