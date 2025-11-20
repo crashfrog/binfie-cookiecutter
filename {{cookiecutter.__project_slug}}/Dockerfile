@@ -27,6 +27,9 @@ RUN /venv/bin/conda-unpack
 FROM debian:bookworm AS runtime
 LABEL maintainer="{{cookiecutter.email}}"
 
+ARG VERSION
+ENV VERSION=${VERSION}
+
 # Copy /venv from the previous stage:
 COPY --from=build /venv /venv
 {%- if cookiecutter.project_shell_cmd %}
@@ -40,7 +43,10 @@ ENTRYPOINT source /venv/bin/activate && \
 
 FROM runtime AS galaxy
 
+ARG VERSION
+ENV VERSION=${VERSION}
+
 # For use in Galaxy we need an entrypoint that drops us
 # into Bash
-ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT []
 CMD ["/bin/bash"]
