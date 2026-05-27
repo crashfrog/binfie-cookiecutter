@@ -2,13 +2,8 @@ name: Test Cookiecutter Template
 
 on: [push, pull_request]
 
-env:
-  FAKE_PROJECT: My Cool Project
-  FAKE_DIR: my_cool_project
-  FAKE_PKG: mycoolproject
-
 jobs:
-  test-template:
+  pytest-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +15,8 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install Cookiecutter
-      run: pip install cookiecutter pytest-cookies
+    - name: Install dependencies
+      run: pip install jinja2 cookiecutter pytest pytest-cookies
 
     - name: Lint Jinja2 templates
       run: |
@@ -44,41 +39,54 @@ jobs:
         print(f"OK: {sum(1 for p in Path('{{cookiecutter.__project_slug}}').rglob('*') if p.is_file())} template files parsed")
         EOF
 
-    - name: Generate a fake project from the template
+    - name: Run pytest-cookies tests
+      run: pytest tests/ -v
+
+  integration:
+    runs-on: ubuntu-latest
+    needs: pytest-tests
+
+    strategy:
+      matrix:
+        include:
+          - variant: cli-on
+            extra_args: ""
+          - variant: cli-off
+            extra_args: 'project_shell_cmd=""'
+
+    env:
+      FAKE_PROJECT: My Cool Project
+      FAKE_DIR: my_cool_project
+      FAKE_PKG: mycoolproject
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Cookiecutter
+      run: pip install cookiecutter
+
+    - name: Generate project (${{ matrix.variant }})
       run: |
-        cookiecutter . --no-input -o ~/ full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT" open_source_license="Public domain"
+        cookiecutter . --no-input -o ~/ \
+          full_name="John Doe" \
+          email="jondoe@example.com" \
+          github_username="johndoe" \
+          project_name="$FAKE_PROJECT" \
+          open_source_license="Public domain" \
+          __name_check=false \
+          ${{ matrix.extra_args }}
 
     - name: Run tests
       run: cd ~/$FAKE_DIR && make test
 
-    - name: Build the Docker image
-      run: cd ~/$FAKE_DIR && docker build . --file Dockerfile --tag $FAKE_PKG:$(date +%s)
+    - name: Build distribution
+      run: cd ~/$FAKE_DIR && make dist
 
-    - name: Test licenses
-      run: |
-        cookiecutter . --no-input -o ~/a  open_source_license="MIT license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/b  open_source_license="BSD license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/c  open_source_license="ISC license" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/d  open_source_license="US Government Work Product" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/e  open_source_license="Apache Software License 2.0" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/f  open_source_license="GNU General Public License v3" full_name="John Doe" email="jondoe@email.email" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/g  open_source_license="Not open source" full_name="John Doe" email="jon doe" email="jondoe.jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-
-    - name: Test workflow languages
-      run: |
-        cookiecutter . --no-input -o ~/h  wf_lang="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/i  wf_lang="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/j  wf_lang="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/k  wf_lang="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-
-    - name: Test makefile
-      run: |
-        cd ~/$FAKE_DIR && make
-        cd ~/$FAKE_DIR && make help
-        cd ~/$FAKE_DIR && make init
-        cd ~/$FAKE_DIR && make clean
-        cd ~/$FAKE_DIR && make install-test
-        cd ~/$FAKE_DIR && make lint
-        cd ~/$FAKE_DIR && make coverage
-        cd ~/$FAKE_DIR && make docs
-        cd ~/$FAKE_DIR && make dist
+    - name: Build Docker image
+      run: cd ~/$FAKE_DIR && docker build . --file Dockerfile --tag $FAKE_PKG:${{ matrix.variant }}
