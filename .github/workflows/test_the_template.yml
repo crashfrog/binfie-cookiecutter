@@ -69,7 +69,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install Cookiecutter
-      run: pip install cookiecutter
+      run: pip install cookiecutter build
 
     - name: Generate project (${{ matrix.variant }})
       run: |

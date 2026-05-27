@@ -39,6 +39,7 @@ test = [
     'hypothesis',
     ]
 dev = [
+    'build',
     'ruff',
     'sphinx',
     'twine',
