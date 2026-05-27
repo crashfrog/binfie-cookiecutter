@@ -92,5 +92,14 @@ dev: clean install-test ## install the dev and test dependencies and install in 
 container: ## create the latest version of the container image
 	docker build --build-arg VERSION=$( git describe ) -t {{cookiecutter.github_username}}/{{ cookiecutter.__project_slug }}:latest .
 
+sync: ## install dependencies with uv (https://docs.astral.sh/uv/)
+	uv sync
+
+lock: ## update uv.lock with latest compatible versions
+	uv lock --upgrade
+
+sif: ## build Apptainer/Singularity image from Singularity.def
+	apptainer build {{ cookiecutter.__project_slug }}.sif Singularity.def
+
 
 

@@ -1,0 +1,25 @@
+[project]
+name = "{{ cookiecutter.pkg_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64", "osx-64", "osx-arm64"]
+
+[dependencies]
+python = ">=3.11,<4"
+# TODO: add conda/bioconda dependencies here, e.g.:
+# samtools = ">=1.17"
+
+[pypi-dependencies]
+{{ cookiecutter.pkg_name }} = { path = ".", editable = true }
+{%- if cookiecutter.wf_lang == 'WDL' %}
+miniwdl = "*"
+{%- elif cookiecutter.wf_lang == 'CWL' %}
+cwltool = "*"
+{%- elif cookiecutter.wf_lang == 'Snakemake' %}
+snakemake = "*"
+{%- endif %}
+
+[tasks]
+test = "pytest"
+lint = "ruff check {{ cookiecutter.pkg_name }}"

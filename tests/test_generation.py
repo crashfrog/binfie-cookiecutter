@@ -59,6 +59,13 @@ def test_cli_on_has_entrypoint(cookies, base_context):
     assert "[project.scripts]" in pyproject
 
 
+def test_always_present_files(cookies, base_context):
+    result = cookies.bake(extra_context=base_context)
+    assert result.exit_code == 0, result.exception
+    assert (result.project_path / "pixi.toml").exists()
+    assert (result.project_path / "Singularity.def").exists()
+
+
 def test_cli_off_no_entrypoint(cookies, base_context):
     result = cookies.bake(extra_context={**base_context, "project_shell_cmd": ""})
     assert result.exit_code == 0, result.exception
