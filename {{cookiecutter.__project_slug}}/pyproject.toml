@@ -5,14 +5,16 @@ authors = [
 ]
 description = "{{ cookiecutter.project_short_description }}"
 readme = {file = "README.md", content-type="text/markdown"}
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 keywords = ["{{ cookiecutter.__project_slug }}"]
 classifiers = [
         'Natural Language :: English',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
 ]
 dependencies = [
-    {%- if cookiecutter.project_shell_cmd %}"Click",{% endif %}
+    {%- if cookiecutter.project_shell_cmd %}"click",{% endif %}
     {%- if cookiecutter.wf_lang == 'WDL' %}"miniwdl",{% endif %}
     {%- if cookiecutter.wf_lang == 'CWL' %}"cwltool",{% endif %}
     {%- if cookiecutter.wf_lang == 'Snakemake' %}"snakemake",{% endif %}
@@ -22,25 +24,22 @@ dynamic = ["version"]
 [project.urls]
 Homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}"
 Issues = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}/issues"
-Documentation = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.__project_slug}}/docs"
+Documentation = "https://{{cookiecutter.github_username}}.github.io/{{cookiecutter.__project_slug}}"
 
 
 {%- if cookiecutter.project_shell_cmd %}
 [project.scripts]
-{{ cookiecutter.project_shell_cmd }} = "{{ cookiecutter.__project_slug }}.cli:cli"
+{{ cookiecutter.project_shell_cmd }} = "{{ cookiecutter.pkg_name }}.cli:cli"
 {% endif %}
 
 
 [project.optional-dependencies]
 test = [
     'pytest',
-    'pytest-runner',
     'hypothesis',
     ]
 dev = [
-    'configparser',
-    'black',
-    'flake8',
+    'ruff',
     'sphinx',
     'twine',
     'coverage',
