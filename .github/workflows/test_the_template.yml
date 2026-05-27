@@ -13,15 +13,36 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.x'
+        python-version: '3.11'
 
     - name: Install Cookiecutter
-      run: pip install cookiecutter
+      run: pip install cookiecutter pytest-cookies
+
+    - name: Lint Jinja2 templates
+      run: |
+        python - <<'EOF'
+        import sys
+        from pathlib import Path
+        from jinja2 import Environment, TemplateSyntaxError
+
+        env = Environment()
+        errors = []
+        for path in Path("{{cookiecutter.__project_slug}}").rglob("*"):
+            if path.is_file():
+                try:
+                    env.parse(path.read_text(errors="ignore"))
+                except TemplateSyntaxError as e:
+                    errors.append(f"{path}: {e}")
+        if errors:
+            print("\n".join(errors))
+            sys.exit(1)
+        print(f"OK: {sum(1 for p in Path('{{cookiecutter.__project_slug}}').rglob('*') if p.is_file())} template files parsed")
+        EOF
 
     - name: Generate a fake project from the template
       run: |
@@ -45,10 +66,10 @@ jobs:
 
     - name: Test workflow languages
       run: |
-        cookiecutter . --no-input -o ~/h  workflow_language="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/i  workflow_language="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/j  workflow_language="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
-        cookiecutter . --no-input -o ~/k  workflow_language="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/h  wf_lang="Nextflow" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/i  wf_lang="Snakemake" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/j  wf_lang="WDL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
+        cookiecutter . --no-input -o ~/k  wf_lang="CWL" full_name="John Doe" email="jondoe@jon.doe" github_username="johndoe" project_name="$FAKE_PROJECT"
 
     - name: Test makefile
       run: |
