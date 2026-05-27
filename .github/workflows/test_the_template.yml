@@ -16,7 +16,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
-      run: pip install jinja2 cookiecutter pytest pytest-cookies
+      run: pip install jinja2 jinja2-time cookiecutter pytest pytest-cookies
 
     - name: Lint Jinja2 templates
       run: |
@@ -25,7 +25,7 @@ jobs:
         from pathlib import Path
         from jinja2 import Environment, TemplateSyntaxError
 
-        env = Environment()
+        env = Environment(extensions=["jinja2_time.TimeExtension"])
         errors = []
         for path in Path("{{cookiecutter.__project_slug}}").rglob("*"):
             if path.is_file():
