@@ -17,7 +17,7 @@ jobs:
         shell: bash -l {0}
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
 
       - name: Setup miniconda
         uses: conda-incubator/setup-miniconda@v2
